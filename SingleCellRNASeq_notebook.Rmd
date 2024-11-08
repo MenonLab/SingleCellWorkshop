@@ -144,7 +144,7 @@ data1_filt <- FindClusters(data1_filt, resolution = 0.5)
 ```
 
 ###Visualizing cells/nuclei in a 2-dimensional space
-####Seurat offers several dimensional reduction approaches for visualization of the single-cell data, such as PCA, tSNE, and UMAP. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. 
+####Seurat offers several dimensional reduction approaches for visualization of the single-cell data, such as PCA, tSNE, and UMAP. The goal of these algorithms is to compress the variation in the data down to 2-D for visualization, preserving some aspects of local distance. Do not use tSNE and UMAP for clustering - there are multiple reports showing that the distortion when projecting into 2-D space can be extreme (see Lior Pachter's work). 
 ####Cells/nuclei within the graph-based clusters determined above should co-localize on these dimension reduction plots, although cluster boundaries may not show 100% separation int he visualization. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.
 ```{r}
 # If UMAP is not automatically installed, you can do so via reticulate::py_install(packages =
@@ -175,7 +175,7 @@ DimPlot(data1_filt,reduction="umap",group.by="seurat_clusters",label=T)
 ```{r}
 features<-c("RBFOX3","SLC17A7","GAD2","SLC32A1",
             "AQP4","FGFR3", "ALDH1L1","MOG","PDGFRA",
-            "AIF1","C1QA","CLDN5","APOE","TREM2","DPYSL2")
+            "AIF1","C1QA","CLDN5")
 DotPlot(data1_filt,
             features  = features,
             cols = c("#70e1f5","#B00B1E"), dot.scale = 8,scale.max = 100,scale.min = 0)+
